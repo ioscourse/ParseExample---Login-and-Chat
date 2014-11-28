@@ -10,4 +10,6 @@ Visit: http://Parse.com and signup to parse.com
 [Parse setApplicationId:@"l6EgU7oig40mXDifW1uAR6DdmcfoeYJG5vKPhbaP"
                   clientKey:@"sDYG9VH1UnQXe6zp2cooQrgG30w1Xatl1qebOpOR"];
                   
+3) Upload Image Tutorial: https://parse.com/tutorials/saving-images
+                  
                   
