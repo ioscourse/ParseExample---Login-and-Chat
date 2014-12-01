@@ -26,6 +26,7 @@ int x=0;
     //self.ChatWindows.text = self.ViewData;
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
+         [self.SendMessage becomeFirstResponder];
         self.UserName.text=[NSString stringWithFormat:@"Welcome, %@", currentUser.username];
         usernames=[NSString stringWithFormat:@"%@", currentUser.username];
         [NSTimer scheduledTimerWithTimeInterval: 1.0  target: self selector: @selector(GetchatMsg:) userInfo: nil repeats: YES];
@@ -164,13 +165,28 @@ int x=0;
     [self GetchatMsgs];
 }
 - (IBAction)SendMsg:(id)sender {
+   if ([self.SendMessage.text  isEqual:@""])
+   {
+       UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"RVC Chat"
+                                                         message:@"Chat Message Required!"
+                                                        delegate:nil
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
+       [message show];
+       [self.SendMessage becomeFirstResponder];
+
+
+   }
+    else
+    {
+        PFObject *chat = [PFObject objectWithClassName:@"Chats"];
+        chat[@"sender"] = usernames;
+        chat[@"receiver"] = self.ViewData;
+        chat[@"message"] = [NSString stringWithFormat:@"%@: %@", usernames,self.SendMessage.text];;
+        [chat saveInBackground];
+        self.SendMessage.text=@"";
+    }
    
-    PFObject *chat = [PFObject objectWithClassName:@"Chats"];
-    chat[@"sender"] = usernames;
-    chat[@"receiver"] = self.ViewData;
-    chat[@"message"] = [NSString stringWithFormat:@"%@: %@", usernames,self.SendMessage.text];;
-    [chat saveInBackground];
-    self.SendMessage.text=@"";
 }
 
 - (IBAction)btnClearChat:(id)sender {

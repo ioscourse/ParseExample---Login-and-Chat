@@ -24,7 +24,18 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-  
+    if([self checkinternet] == NO)
+    {
+        // Not connected to the internet
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Internet Connection Required"
+                                                          message:@"Close app and return when internet connection available."
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    }
+    else
+    {
     
     
     
@@ -54,6 +65,7 @@
         
     } else {
         // show the signup or login screen
+    }
     }
 }
 
@@ -117,7 +129,22 @@
   [self dismissViewControllerAnimated:NO completion:nil];
   //  [self dismissViewControllerAnimated:TRUE];
 }
-
+- (BOOL) checkinternet
+{
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://www.google.com/m"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    if (data)
+    {
+        NSLog(@"Device is connected to the internet");
+        return YES;
+    }
+    else
+    {
+        NSLog(@"Device is not connected to the internet");
+        return NO;
+    }
+    
+}
 // Sent to the delegate when the sign up attempt fails.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
     NSLog(@"Failed to sign up...");
