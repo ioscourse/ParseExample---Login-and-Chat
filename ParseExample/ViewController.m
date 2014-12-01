@@ -21,6 +21,7 @@
     [super viewDidLoad];
        // Do any additional setup after loading the view, typically from a nib.
 }
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
   
@@ -50,6 +51,7 @@
     if (currentUser) {
         self.username.text=[NSString stringWithFormat:@"Welcome, %@", currentUser.username];
         usernames=[NSString stringWithFormat:@"%@", currentUser.username];
+        
     } else {
         // show the signup or login screen
     }

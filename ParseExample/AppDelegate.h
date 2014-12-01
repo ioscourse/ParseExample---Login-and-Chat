@@ -12,6 +12,8 @@
 
 NSString * usernames;
 NSString * chatmsg;
+UIImage * selectedImage;
+NSData * imageData2;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
