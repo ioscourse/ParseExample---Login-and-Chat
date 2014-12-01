@@ -17,5 +17,7 @@
 @property (strong) NSString *ViewData;
 - (IBAction)btnExit:(id)sender;
 - (IBAction)SendMsg:(id)sender;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
+- (IBAction)btnClearChat:(id)sender;
 
 @end

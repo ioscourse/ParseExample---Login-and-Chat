@@ -105,19 +105,20 @@
 
 
 - (PFQuery *)queryForTable {
-  
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    [query setLimit:1000];
+ 
+    NSString *pred = [NSString stringWithFormat:@"username <>%@%@%@",@"'",usernames,@"'"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: pred];
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName  predicate:predicate];
     
     // If no objects are loaded in memory, we look to the cache first to fill the table
     // and then subsequently do a query against the network.
-    
     if ([self.objects count] == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
-    
+    [query orderByDescending:@"username"];
     
     return query;
+    
 }
 
 
@@ -131,7 +132,10 @@
     }
     
     // Configure the cell
-    cell.textLabel.text = [object objectForKey:@"username"];
+
+   cell.textLabel.text = [object objectForKey:@"username"];
+  
+   
   //  cell.detailTextLabel.text = [object objectForKey:@"CreatedAt"];
     return cell;
 }
